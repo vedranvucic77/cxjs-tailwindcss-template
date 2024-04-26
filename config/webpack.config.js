@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'),
    CxScssManifestPlugin = require('./CxScssMainfestPlugin'),
    tailwindConfig = require('../tailwind.config'),
    tailwindcss = require('tailwindcss'),
+   MonacoEnvironment = require('monaco-editor-webpack-plugin'),
    manifest = require('cx/manifest');
 
 module.exports = ({ rootCssLoader, tailwindOptions }) => {
@@ -60,7 +61,9 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                                     { trimWhitespace: true, autoImportHtmlElement: true },
                                  ],
                                  [
-                                    require.resolve('swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm'),
+                                    require.resolve(
+                                       'swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm'
+                                    ),
                                     { manifest, useSrc: true },
                                  ],
                               ],
@@ -113,6 +116,8 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
          new CxScssManifestPlugin({
             outputPath: p('app/manifest.scss'),
          }),
+
+         new MonacoEnvironment(),
       ],
 
       optimization: {
